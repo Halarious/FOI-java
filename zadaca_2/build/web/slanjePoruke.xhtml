@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <f:view locale="#{lokalizacija.odabraniJezikIsoAlpha2}">
+        <h:head>
+            <title>#{strings.slanjePoruka_naslov}</title>
+        </h:head>
+        <h:body>
+            <h:form id="slanjeForm">
+                <h:panelGrid columns="3">
+                    <h:outputLabel   value="#{strings.slanjePoruka_salje}"/>
+                    <h:inputText     id="posiljatelj" value="#{slanjePoruke.posiljatelj}" 
+                                     required="true" requiredMessage="Obavezno polje"/>
+                    <h:message       style="color: red;
+                                            font-family: 'New Century Schoolbook', serif;
+                                            font-style: oblique;"
+                                     for="posiljatelj" id="posiljateljError" />
+
+                    <h:outputLabel   value="#{strings.slanjePoruka_prima}"/>
+                    <h:inputText     id="primatelj" value="#{slanjePoruke.primatelj}"
+                                     required="true" requiredMessage="Obavezno polje"/>
+                    <h:message       style="color: red;
+                                            font-family: 'New Century Schoolbook', serif;
+                                            font-style: oblique;"
+                                     for="primatelj" id="primateljError" />
+
+                    <h:outputLabel   value="#{strings.slanjePoruka_predmet}"/>
+                    <h:inputText     id="predmet" value="#{slanjePoruke.predmet}"
+                                     required="true" requiredMessage="Obavezno polje"/>
+                    <h:message      style="color: red;
+                                            font-family: 'New Century Schoolbook', serif;
+                                            font-style: oblique;" 
+                                    errorClass="errorMessage" for="predmet" id="predmetError" />
+
+                    <h:outputLabel   value="#{strings.slanjePoruka_sadrzaj}"/>
+                    <h:inputTextarea value="#{slanjePoruke.sadrzaj}" rows="10" cols="80"/>
+                    <div/>
+                </h:panelGrid>
+                
+                <h:commandButton value="#{strings.slanjePoruka_salji}" action="#{slanjePoruke.saljiPoruku}"/>
+        
+                <br/><br/>
+                <h:commandLink immediate="true" value="#{strings.index_naslov}"         action="#{slanjePoruke.promjenaJezika}"/><br/>
+                <h:commandLink immediate="true" value="#{strings.pregledPoruka_naslov}" action="#{slanjePoruke.pregledPoruka}"/><br/>
+            </h:form>
+        </h:body>
+    </f:view>
+</html>
+

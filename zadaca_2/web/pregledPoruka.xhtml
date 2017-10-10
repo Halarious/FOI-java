@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <f:view locale="#{lokalizacija.odabraniJezikIsoAlpha2}">
+        <h:head>
+            <title>#{strings.pregledPoruka_naslov}</title>
+        </h:head>
+        <h:body>
+            <h:form>
+                <f:event type="preRenderComponent" listener="#{pregledPoruka.preRender}"/>
+                <h:panelGrid columns="2" cellpadding="10">
+                    <h:commandLink value="#{strings.index_naslov}"        
+                                   action="#{pregledPoruka.promjenaJezika}"/>
+                    <h:commandLink value="#{strings.pregledPoruka_slanjeEmailPoruke}" 
+                                   action="#{pregledPoruka.saljiPoruku}"/>
+                </h:panelGrid>
+                <h:panelGrid columns="3" cellpadding="5">
+                    <h:outputLabel   value="#{strings.pregledPoruka_odaberiMapu}"/>
+                    <h:selectOneMenu value="#{pregledPoruka.odabranaMapa}">
+                        <f:selectItems value="#{pregledPoruka.mape}" var="mape"
+                                       itemLabel="#{mape.labela}"    itemValue="#{mape.vrijednost}"/>
+                    </h:selectOneMenu>
+                    <h:commandButton value="#{strings.pregledPoruka_gumbPromjeniMapu}" 
+                                     action="#{pregledPoruka.promjenaMape}"/>
+
+                    <h:outputLabel   value="#{strings.pregledPoruka_trazi}"/>
+                    <h:inputText     value="#{pregledPoruka.pretrazivanjePoruka}" size="18"/>
+                    <h:commandButton value="#{strings.pregledPoruka_gumbTrazi}" 
+                                     action="#{pregledPoruka.traziPoruke}"/>
+                </h:panelGrid>
+                <br/><br/>
+                <h:dataTable value="#{pregledPoruka.poruke}" var="poruka" 
+                             border="1" cellspacing="1" cellpadding="1">
+                    <h:column>
+                        <f:facet name="header">#{strings.pregledPoruka_salje}</f:facet>
+                        <h:outputText value="#{poruka.salje}" />
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">#{strings.pregledPoruka_predmet}</f:facet>
+                        <h:outputText value="#{poruka.predmet}" />
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">#{strings.pregledPoruka_vrijemeSlanja}</f:facet>
+                        <h:outputText value="#{poruka.vrijemeSlanja}" />
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">#{strings.pregledPoruka_sadrzaj}</f:facet>
+                        <h:outputText value="#{poruka.sadrzaj}" />
+                    </h:column>
+                </h:dataTable>
+                <h:inputHidden value="#{pregledPoruka.odPoruke}" />
+                <h:inputHidden value="#{pregledPoruka.doPoruke}" />
+                <h:panelGrid columns="4" cellpadding="20">
+                    <h:panelGroup>
+                        <h:outputLabel   value="#{strings.pregledPoruka_ukupnoPoruka}"/>
+                        <h:outputText    value="#{pregledPoruka.ukupanBrojPorukaUMapi}"/>
+                    </h:panelGroup>
+                    <h:commandButton value="#{strings.pregledPoruka_gumbPrethodnePoruke}" 
+                                     action="#{pregledPoruka.prethodnePoruke}"
+                                     disabled="#{pregledPoruka.disablePrevious}"/>
+                    <h:commandButton value="#{strings.pregledPoruka_gumbSljedecePoruke}"  
+                                     action="#{pregledPoruka.sljedecePoruke}"
+                                     disabled="#{pregledPoruka.disableNext}"/>
+                </h:panelGrid>
+            </h:form>
+        </h:body>
+    </f:view>
+</html>
+

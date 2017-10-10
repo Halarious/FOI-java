@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+        <title>Odabir uredjaja</title>
+    </h:head>
+    <h:body>
+        <div class="container-fluid">
+            <h:form id="form" class="form-horizontal" style="margin-top: 20px">
+                <div class="form-group">
+                    <div class="col-sm-2">
+                        <h:outputLabel for="nazivAdresa" value="Naziv i adresa:" class="control-label"/></div>
+                    <div class="col-sm-3">
+                        <h:inputText   id="nazivAdresa"  value="#{odabirUredjaja.naziv}" 
+                                       pt:placeholder="Naziv"  class="form-control " /></div>
+                    <div class="col-sm-3">    
+                        <h:inputText                     value="#{odabirUredjaja.adresa}" 
+                                       pt:placeholder="Adresa" class="form-control "/></div>
+                    <div class="col-sm-4">    
+                        <h:commandButton value="Upiši SOAP" action="#{odabirUredjaja.upisiSoap()}" class="btn btn-primary"/></div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-8"/>
+                    <div class="col-sm-4">
+                        <h:commandButton value="Upiši REST" action="#{odabirUredjaja.upisiRest()}" class="btn btn-primary"/></div>
+                </div>
+                    
+                <div class="form-group" style="margin-top: 50px">
+                    <div class="col-sm-4">
+                        <div class="col-sm-2">
+                            <h:outputLabel for="listbox" value="Uređaji:"/></div>
+                        <div class="col-sm-2">    
+                            <h:selectManyListbox id="listbox" value="#{odabirUredjaja.ids}" size="7">
+                                <f:selectItems value="#{odabirUredjaja.uredjaji}" 
+                                               var="uredaj" itemLabel="#{uredaj.naziv}" itemValue="#{uredaj.id}"/>
+                            </h:selectManyListbox></div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="col-sm-2">
+                            <h:outputLabel for="from" value="Od-do:" class="control-label"/></div>
+                        <div class="col-sm-3">
+                            <h:inputText   id="from"  value="#{odabirUredjaja.from}" 
+                                           pt:placeholder="Od" class="form-control" /></div>
+                        <div class="col-sm-3">
+                            <h:inputText              value="#{odabirUredjaja.to}" 
+                                           pt:placeholder="Do" class="form-control" /></div>
+                            
+                        <div class="col-sm-6"/>
+                        <div class="col-sm-2" style="margin-top: 25px">
+                            <h:commandButton value="Preuzmi SOAP" action="#{odabirUredjaja.preuzmiSoap}" class="btn btn-primary"/></div>
+                        <div class="col-sm-6"/>
+                        <div class="col-sm-2" style="margin-top: 25px">
+                            <h:commandButton value="Preuzmi REST" action="#{odabirUredjaja.preuzmiRest}" class="btn btn-primary"/></div>
+                    </div>
+                </div>
+                <div class="col-sm-10">
+                    <h:dataTable value="#{odabirUredjaja.meteoPodaci}" var="meteoPodaci" 
+                                 border="1" cellspacing="1" cellpadding="1" width="100%" style="margin-top: 25px"
+                                 rendered="#{not empty odabirUredjaja.meteoPodaci}">
+                        <h:column>
+                            <f:facet name="header">Temperatura</f:facet>
+                            <h:outputText value="#{meteoPodaci.temperatureValue} #{meteoPodaci.temperatureUnit}" />
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Vlaga</f:facet>
+                            <h:outputText value="#{meteoPodaci.humidityValue} #{meteoPodaci.humidityUnit}" />
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Tlak</f:facet>
+                            <h:outputText value="#{meteoPodaci.pressureValue} #{meteoPodaci.pressureUnit}" />
+                        </h:column>
+                    </h:dataTable>
+                </div>
+            </h:form>
+        </div>
+    </h:body>
+</html>
